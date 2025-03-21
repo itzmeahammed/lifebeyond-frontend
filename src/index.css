@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Regular.ttf");
+}
+:root {
+  --primaryTextColor: #efeeec;
+  --primaryBackGroundColor: #000;
+  --primaryButtonBackGroundColor: #ff4c24;
+  --secondaryTextColor: #131313;
+}
+* {
+  font-family: "Poppins";
+}
+.d-flex {
+  display: flex;
+}
+
+.d-flex-full {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-flex-alc {
+  display: flex;
+  align-items: center;
+}
+.d-flex-jsc {
+  display: flex;
+  justify-content: center;
+}
+.d-flex-jsb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.w-100 {
+  width: 100%;
+}
+.cursor-ptr {
+  cursor: pointer;
+}
+.gap-8 {
+  gap: 8px;
+}
+.gap-16 {
+  gap: 16px;
+}
+
+.p-8 {
+  padding: 8px;
+}
+.p-16 {
+  padding: 16px;
+}
