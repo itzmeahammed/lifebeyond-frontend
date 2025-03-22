@@ -1,10 +1,23 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar";
+import Dashboard from "./components/dashboard";
 
 function App() {
   return (
-    <div className='d-flex-full'>
-      <h1>hii</h1>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path={"/"} element={<Dashboard />} />
+        <Route path={"/dashboard"} element={<Dashboard />} />
+
+        <Route path={"/"} element={<Dashboard />} />
+
+        <Route path={"/"} element={<Dashboard />} />
+
+        <Route path={"/"} element={<Dashboard />} />
+      </Routes>
+    </>
   );
 }
 

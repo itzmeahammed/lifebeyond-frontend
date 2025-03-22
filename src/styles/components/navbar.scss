@@ -1,0 +1,53 @@
+/* <div className='navbar-container d-flex-jsb'>
+<div className='navbar-logo-container'>
+  <span>Life Beyond</span>
+</div>
+<div className='navbar-body-container'>
+  <Link to='/home'>Home</Link>
+  <Link to='/doctor'>Doctor</Link>
+  <Link to='/lawyer'>Lawyer</Link>
+  <Link to='/succes-stoires'>Success Stories</Link>
+</div>
+<div className='navbar-footer-container'>
+  <Link to='/login'>Log in</Link>
+  <button>Get Started</button>
+</div>
+</div> */
+
+.navbar-container {
+  background-color: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  position: fixed;
+  inset: 0% 0% auto;
+  .navbar-logo-container span {
+    color: var(--primaryTextColor);
+    fill: #efeeec;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  .navbar-body-container {
+    a {
+      text-decoration: none;
+      color: var(--primaryTextColor);
+    }
+    a:hover {
+      border-bottom: 1px solid var(--primaryTextColor);
+    }
+  }
+  .navbar-footer-container {
+    a {
+      text-decoration: none;
+      color: var(--primaryTextColor);
+    }
+    button {
+      background-color: var(--primaryTextColor);
+      color: var(--secondaryTextColor);
+      border: none;
+      outline: none;
+      border-radius: 8px;
+    }
+  }
+}
