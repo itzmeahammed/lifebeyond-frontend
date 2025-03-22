@@ -34,7 +34,8 @@
       color: var(--primaryTextColor);
     }
     a:hover {
-      border-bottom: 1px solid var(--primaryTextColor);
+      border-bottom: 2px solid var(--primaryButtonBackGroundColor);
+      color: var(--primaryTextColor);
     }
   }
   .navbar-footer-container {
@@ -48,6 +49,10 @@
       border: none;
       outline: none;
       border-radius: 8px;
+    }
+    button:hover {
+      background-color: var(--primaryButtonBackGroundColor);
+      font-weight: 600;
     }
   }
 }
