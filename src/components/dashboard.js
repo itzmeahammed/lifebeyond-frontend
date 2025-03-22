@@ -1,9 +1,14 @@
 import React from "react";
 import "../styles/components/dashboard.scss";
-import voiceGif from "../assets/gif/voice-assistant.gif";
+import { useLocation } from "react-router-dom";
+import Doctor from "./doctor";
+import SuccessStory from "./successStory";
 
-const Dashboard = () => {
-  return (
+const Dashboard = ({ currentPage }) => {
+  console.log(currentPage);
+
+  const path = useLocation();
+  return currentPage == "dashboard" ? (
     <div className='dashboard-container d-flex-full d-flex-col'>
       <div className='dashboard-inner-container  d-flex-col gap-16 d-flex-jsc'>
         <p>Your past does not define you—your future is yours to build.</p>
@@ -27,6 +32,12 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+  ) : currentPage == "doctor" ? (
+    <Doctor />
+  ) : currentPage == "success-story" ? (
+    <SuccessStory />
+  ) : (
+    ""
   );
 };
 

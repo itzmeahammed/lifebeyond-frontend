@@ -21,6 +21,8 @@
   z-index: 2000;
   position: fixed;
   inset: 0% 0% auto;
+  background-color: rgba(0, 0, 0, 0.6);
+
   .navbar-logo-container span {
     color: var(--primaryTextColor);
     fill: #efeeec;
@@ -29,17 +31,20 @@
     line-height: 24px;
   }
   .navbar-body-container {
-    a {
+    span {
       text-decoration: none;
       color: var(--primaryTextColor);
     }
-    a:hover {
+    span:hover {
       border-bottom: 2px solid var(--primaryButtonBackGroundColor);
       color: var(--primaryTextColor);
     }
+    .current-page-indication {
+      border-bottom: 2px solid var(--primaryButtonBackGroundColor);
+    }
   }
   .navbar-footer-container {
-    a {
+    span {
       text-decoration: none;
       color: var(--primaryTextColor);
     }
