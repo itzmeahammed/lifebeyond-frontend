@@ -13,10 +13,12 @@ function App() {
   const location = useLocation();
 
   const [currentPage, setcurrentPage] = useState("dashboard");
+  console.log(location.pathname);
+
   return (
     <>
-      {location.pathname == "/login" && location.pathname == "/" ? (
-        ""
+      {location.pathname === "/login" || location.pathname === "/" ? (
+        <></>
       ) : (
         <Navbar setcurrentPage={setcurrentPage} currentPage={currentPage} />
       )}

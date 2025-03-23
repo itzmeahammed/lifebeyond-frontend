@@ -1,53 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import "../styles/components/doctorList.scss";
 import { FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
-const users = [
-  {
-    id: 1,
-    name: "Ahammed Riyaz",
-    role: "Frontend Developer",
-    bio: "Loves building modern UI with React and MUI. Focused on clean design and UX.",
-    email: "ahammed.r@webmail.com",
-    avatar: "https://i.pravatar.cc/150?img=68",
-  },
-  {
-    id: 2,
-    name: "Vishnu V",
-    role: "YouTuber & Web Creator",
-    bio: "Passionate about tech and job updates. Runs the 'Mr.V' channel for private job seekers.",
-    email: "vishnu.v@creatorhub.com",
-    avatar: "https://i.pravatar.cc/150?img=69",
-  },
-  {
-    id: 3,
-    name: "Meena Kapoor",
-    role: "UI/UX Designer",
-    bio: "Figma enthusiast who loves turning ideas into aesthetic designs.",
-    email: "meena.k@designly.com",
-    avatar: "https://i.pravatar.cc/150?img=70",
-  },
-  {
-    id: 4,
-    name: "Sameer Reddy",
-    role: "Mobile App Developer",
-    bio: "Works on React Native and Flutter to build cross-platform mobile solutions.",
-    email: "sameer.reddy@appsdev.com",
-    avatar: "https://i.pravatar.cc/150?img=71",
-  },
-];
+// Helper function to fetch users with role "user"
+export function getUsers(token) {
+  return axios({
+    method: "get",
+    url: "http://localhost:6777/api/user/getUserByRole?role=user",
+    headers: {
+      Authorization: token,
+    },
+  });
+}
 
 const UserList = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Retrieve token from cookies (adjust the cookie name if necessary)
+    const token = Cookies.get("token");
+
+    getUsers(token)
+      .then((response) => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || "Error fetching data");
+        setLoading(false);
+      });
+  }, []);
   return (
     <div className='doctor-list-wrapper'>
       {users.map((user) => (
         <div className='doctor-card' key={user.id}>
           <div className='avatar-wrapper'>
-            <img src={user.avatar} alt={user.name} />
+            <img
+              src={
+                user.avatar ||
+                "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              }
+              alt={user.username || user.name}
+            />
           </div>
-          <h3>{user.name}</h3>
+          <h3>{user.username || user.name}</h3>
           <p className='specialty'>{user.role}</p>
-          <p className='bio'>{user.bio}</p>
+          <p className='bio'>{user.bio || "No bio available"}</p>
           <a href={`mailto:${user.email}`} className='email'>
             {user.email}
           </a>

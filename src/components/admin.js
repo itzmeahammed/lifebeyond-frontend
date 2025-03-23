@@ -73,11 +73,17 @@ const Admin = ({ currentPage }) => {
       </div>
     </div>
   ) : currentPage == "doctor" ? (
-    <DoctorList />
+    <div className='admin-container d-flex-full d-flex-col'>
+      <DoctorList />
+    </div>
   ) : currentPage == "lawyer" ? (
-    <LawyerList />
+    <div className='admin-container d-flex-full d-flex-col'>
+      <LawyerList />
+    </div>
   ) : (
-    <UserList />
+    <div className='admin-container d-flex-full d-flex-col'>
+      <UserList />
+    </div>
   );
 };
 
