@@ -37,7 +37,6 @@ const chatData = [
     ],
   },
 ];
-
 const Chat = () => {
   const [activeUser, setActiveUser] = useState(chatData[0]);
   const [newMessage, setNewMessage] = useState("");
