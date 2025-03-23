@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import "../styles/components/login.scss";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -23,16 +22,13 @@ const LoginPage = () => {
 
   const [error, setError] = useState("");
   const [showSignup, setShowSignup] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = async () => {
     setError("");
-    // Login logic here
   };
 
   const handleSignUp = async () => {
     setError("");
-    // Sign-up logic here
   };
 
   const isLoginButtonDisabled = !loginEmail || !loginPassword;

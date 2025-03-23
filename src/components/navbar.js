@@ -65,8 +65,7 @@ const Navbar = ({ setcurrentPage, currentPage }) => {
           )}
         </div>
         <div className='navbar-footer-container d-flex-alc gap-16'>
-          <span to='/login'>Log in</span>
-          <button className='p-16  cursor-ptr'>Get Started</button>
+          <button className='p-16  cursor-ptr'>Sign in</button>
         </div>
       </div>
     </>
