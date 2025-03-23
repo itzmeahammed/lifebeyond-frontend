@@ -1,12 +1,19 @@
 import React from "react";
-import { span, useLocation } from "react-router-dom";
+import { span, useLocation, useNavigate } from "react-router-dom";
 import "../styles/components/navbar.scss";
+import Cookies from "js-cookie";
 
 const Navbar = ({ setcurrentPage, currentPage }) => {
   const path = useLocation();
+  const navigate = useNavigate();
 
   const handlePage = (value) => {
     setcurrentPage(value);
+  };
+  const handleSignOut = () => {
+    Cookies.remove("token");
+    Cookies.remove("role");
+    navigate("/");
   };
   return (
     <>
@@ -24,25 +31,42 @@ const Navbar = ({ setcurrentPage, currentPage }) => {
           >
             Home
           </span>
-          <span
-            to='/doctor'
-            onClick={() => handlePage("doctor")}
-            className={`cursor-ptr ${
-              currentPage == "doctor" && "current-page-indication"
-            }`}
-          >
-            Doctor
-          </span>
-          <span
-            to='/lawyer'
-            onClick={() => handlePage("lawyer")}
-            className={`cursor-ptr ${
-              currentPage == "lawyer" && "current-page-indication"
-            }`}
-          >
-            Lawyer
-          </span>
-          {path?.pathname?.includes("/admin") ? (
+          {(path?.pathname?.includes("/dashboard") ||
+            path?.pathname?.includes("/admin")) && (
+            <>
+              <span
+                to='/doctor'
+                onClick={() => handlePage("doctor")}
+                className={`cursor-ptr ${
+                  currentPage == "doctor" && "current-page-indication"
+                }`}
+              >
+                Doctor
+              </span>
+              <span
+                to='/lawyer'
+                onClick={() => handlePage("lawyer")}
+                className={`cursor-ptr ${
+                  currentPage == "lawyer" && "current-page-indication"
+                }`}
+              >
+                Lawyer
+              </span>
+            </>
+          )}
+          {(path?.pathname?.includes("/doctor") ||
+            path?.pathname?.includes("/lawyer")) && (
+            <span
+              to='/chat'
+              onClick={() => handlePage("chat")}
+              className={`cursor-ptr ${
+                currentPage == "chat" && "current-page-indication"
+              }`}
+            >
+              Chat
+            </span>
+          )}
+          {path?.pathname?.includes("/admin") && (
             <span
               to='/users'
               onClick={() => handlePage("users")}
@@ -52,7 +76,8 @@ const Navbar = ({ setcurrentPage, currentPage }) => {
             >
               Users
             </span>
-          ) : (
+          )}
+          {path?.pathname?.includes("/dashboard") && (
             <span
               to='/succes-stoires'
               onClick={() => handlePage("success-story")}
@@ -65,7 +90,9 @@ const Navbar = ({ setcurrentPage, currentPage }) => {
           )}
         </div>
         <div className='navbar-footer-container d-flex-alc gap-16'>
-          <button className='p-16  cursor-ptr'>Sign in</button>
+          <button className='p-16  cursor-ptr' onClick={handleSignOut}>
+            Sign out
+          </button>
         </div>
       </div>
     </>

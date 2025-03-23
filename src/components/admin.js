@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "../styles/components/admin.scss";
+import DoctorList from "./doctorlist";
+import LawyerList from "./lawyerslist";
+import UserList from "./userslist";
 
-const Admin = () => {
+const Admin = ({ currentPage }) => {
   const [files, setFiles] = useState([]);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -33,9 +36,9 @@ const Admin = () => {
     onDrop,
   });
 
-  console.log("Files in state:", files);
+  //   console.log(currentPage);
 
-  return (
+  return currentPage == "dashboard" ? (
     <div className='admin-container d-flex-full d-flex-col'>
       <div className='admin-inner-container d-flex-col gap-16 d-flex-jsc'>
         <div
@@ -69,6 +72,12 @@ const Admin = () => {
         </div>
       </div>
     </div>
+  ) : currentPage == "doctor" ? (
+    <DoctorList />
+  ) : currentPage == "lawyer" ? (
+    <LawyerList />
+  ) : (
+    <UserList />
   );
 };
 

@@ -6,6 +6,8 @@ import Admin from "./components/admin";
 import Doctor from "./components/doctor";
 import { useState } from "react";
 import LoginPage from "./components/login";
+import DoctorDashbaord from "./components/doctorDashbaord";
+import LawyerDashboard from "./components/lawyerDashboard";
 
 function App() {
   const location = useLocation();
@@ -22,14 +24,27 @@ function App() {
       <Routes>
         <Route
           path={"/dashboard"}
-          element={<Dashboard currentPage={currentPage} />}
+          element={
+            <Dashboard
+              currentPage={currentPage}
+              setcurrentPage={setcurrentPage}
+            />
+          }
         />
         <Route path={"/"} element={<LoginPage />} />
         <Route path={"/login"} element={<LoginPage />} />
 
-        <Route path={"/admin"} element={<Admin />} />
+        <Route path={"/admin"} element={<Admin currentPage={currentPage} />} />
 
-        {/* <Route path={"/doctor"} element={<Doctor />} /> */}
+        <Route
+          path={"/doctor"}
+          element={<DoctorDashbaord currentPage={currentPage} />}
+        />
+
+        <Route
+          path={"/lawyer"}
+          element={<LawyerDashboard currentPage={currentPage} />}
+        />
 
         {/* <Route path={"/"} element={<Dashboard />} /> */}
       </Routes>

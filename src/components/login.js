@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -9,6 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import "../styles/components/login.scss";
+import axios from "axios";
+import { SIGN_IN_URL, SIGN_UP_URL } from "../helper/apiurls";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -19,21 +23,63 @@ const LoginPage = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [role, setRole] = useState("");
-
   const [error, setError] = useState("");
   const [showSignup, setShowSignup] = useState(false);
+  const [isSubmitted, setisSubmitted] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(SIGN_IN_URL, {
+        email: loginEmail,
+        password: loginPassword,
+      });
+      Cookies.set("token", response?.data?.token);
+      Cookies.set("role", response?.data?.role);
+      setisSubmitted(true);
+    } catch (error) {
+      console.log(error);
+    }
     setError("");
   };
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(SIGN_UP_URL, {
+        username: signUpUsername,
+        number: mobile,
+        email: signUpEmail,
+        role: role,
+        password: signUpPassword,
+        avatar: "",
+        bio: "",
+      });
+      Cookies.set("token", response?.data?.token);
+      Cookies.set("role", response?.data?.role);
+      setisSubmitted(true);
+    } catch (error) {
+      console.log(error);
+    }
     setError("");
   };
 
   const isLoginButtonDisabled = !loginEmail || !loginPassword;
   const isSignUpButtonDisabled =
     !signUpUsername || !signUpEmail || !signUpPassword || !mobile || !role;
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const roleofLogin = Cookies.get("role");
+
+    if (token && roleofLogin) {
+      roleofLogin == "user" && navigate("/dashboard");
+      roleofLogin == "admin" && navigate("/admin");
+      roleofLogin == "doctor" && navigate("/doctor");
+      roleofLogin == "lawyer" && navigate("/lawyer");
+    }
+  }, [isSubmitted]);
 
   return (
     <div className='login-page'>

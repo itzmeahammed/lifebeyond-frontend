@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/components/dashboard.scss";
 import { useLocation } from "react-router-dom";
 import Doctor from "./doctor";
 import SuccessStory from "./successStory";
+import Lawyer from "./lawyer";
 
-const Dashboard = ({ currentPage }) => {
+const Dashboard = ({ currentPage, setcurrentPage }) => {
+  const [isDoctorContactClicked, setisDoctorContactClicked] = useState(false);
   const path = useLocation();
   return currentPage == "dashboard" ? (
     <div className='dashboard-container d-flex-full d-flex-col'>
       <div className='dashboard-inner-container  d-flex-col gap-16 d-flex-jsc'>
         <p>Your past does not define you—your future is yours to build.</p>
         <div className='dasboard-btn-container '>
-          <button className='p-16 cursor-ptr'>Get Started</button>
+          <button
+            className='p-16 cursor-ptr'
+            onClick={() => setcurrentPage("success-story")}
+          >
+            Get Started
+          </button>
         </div>
         <div className='voice-assistent-gif-container d-flex-col d-flex-full cursor-ptr'>
           <img
@@ -35,7 +42,7 @@ const Dashboard = ({ currentPage }) => {
   ) : currentPage == "success-story" ? (
     <SuccessStory />
   ) : (
-    ""
+    currentPage == "lawyer" && <Lawyer />
   );
 };
 
