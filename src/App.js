@@ -4,7 +4,7 @@ import Navbar from "./components/navbar";
 import Dashboard from "./components/dashboard";
 import Admin from "./components/admin";
 import Doctor from "./components/doctor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginPage from "./components/login";
 import DoctorDashbaord from "./components/doctorDashbaord";
 import LawyerDashboard from "./components/lawyerDashboard";
@@ -13,10 +13,15 @@ function App() {
   const location = useLocation();
 
   const [currentPage, setcurrentPage] = useState("dashboard");
+
+  useEffect(() => {
+    setcurrentPage("dashboard");
+  }, [location.pathname === "/login", location.pathname === "/"]);
+
   return (
     <>
-      {location.pathname == "/login" && location.pathname == "/" ? (
-        ""
+      {location.pathname === "/login" || location.pathname === "/" ? (
+        <></>
       ) : (
         <Navbar setcurrentPage={setcurrentPage} currentPage={currentPage} />
       )}
