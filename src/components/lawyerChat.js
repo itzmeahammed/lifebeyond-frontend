@@ -6,7 +6,7 @@ import { FiSend } from "react-icons/fi";
 import { IoClose } from "react-icons/io5"; // Import the close icon
 import "../styles/components/chat.scss";
 
-const Chat = ({ doctor, chatId, role, onClose }) => {
+const LawyerChat = ({ lawyer, chatId, role, onClose }) => {
   // Add onClose function as prop
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -88,14 +88,14 @@ const Chat = ({ doctor, chatId, role, onClose }) => {
     <div className='chat-layout'>
       <div className='chat-sidebar'>
         <div className='chat-doctor-info'>
-          <Avatar>{doctor.username.charAt(0).toUpperCase()}</Avatar>
-          <span>{doctor.username}</span>
+          <Avatar>{lawyer.username.charAt(0).toUpperCase()}</Avatar>
+          <span>{lawyer.username}</span>
         </div>
       </div>
 
       <div className='chat-container'>
         <div className='chat-header'>
-          Chat with {doctor.username}
+          Chat with {lawyer.username}
           <button className='close-chat-btn' onClick={onClose}>
             <IoClose size={24} /> {/* Close icon */}
           </button>
@@ -103,21 +103,21 @@ const Chat = ({ doctor, chatId, role, onClose }) => {
 
         <div className='chat-body'>
           {messages.map((msg, index) => {
-            const isDoctorMessage = msg.from === "user";
-            const isUserMessage = msg.from === "doctor";
+            const isLawyerMessage = msg.from === "user";
+            const isUserMessage = msg.from === "lawyer";
 
             return (
               <div
                 key={index}
                 className={`chat-message ${
-                  (role === "user" && isDoctorMessage) ||
-                  (role === "doctor" && isUserMessage)
-                    ? "doctor-message" // Left alignment for doctor messages
+                  (role === "user" && isLawyerMessage) ||
+                  (role === "lawyer" && isUserMessage)
+                    ? "doctor-message" // Left alignment for lawyer messages
                     : "user-message" // Right alignment for user messages
                 }`}
               >
                 <Avatar className='chat-avatar'>
-                  {isUserMessage ? "U" : "D"}
+                  {isUserMessage ? "U" : "L"}
                 </Avatar>
                 <div className='chat-text'>
                   {msg.text}
@@ -146,4 +146,4 @@ const Chat = ({ doctor, chatId, role, onClose }) => {
   );
 };
 
-export default Chat;
+export default LawyerChat;
