@@ -6,7 +6,7 @@ import { FiSend } from "react-icons/fi";
 import { IoClose } from "react-icons/io5"; // Import the close icon
 import "../styles/components/chat.scss";
 
-const Chat = ({ doctor, chatId, role, onClose }) => {
+const Chat = ({ doctor, chatId, role, onClose, name }) => {
   // Add onClose function as prop
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -88,14 +88,14 @@ const Chat = ({ doctor, chatId, role, onClose }) => {
     <div className='chat-layout'>
       <div className='chat-sidebar'>
         <div className='chat-doctor-info'>
-          <Avatar>{doctor.username.charAt(0).toUpperCase()}</Avatar>
-          <span>{doctor.username}</span>
+          <Avatar>{name}</Avatar>
+          <span>{name}</span>
         </div>
       </div>
 
       <div className='chat-container'>
         <div className='chat-header'>
-          Chat with {doctor.username}
+          Chat with {name}
           <button className='close-chat-btn' onClick={onClose}>
             <IoClose size={24} /> {/* Close icon */}
           </button>

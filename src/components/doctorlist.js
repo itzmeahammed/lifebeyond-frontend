@@ -88,6 +88,7 @@ const DoctorList = () => {
   const handleCloseChat = () => {
     setSelectedDoctor(null); // Set the selected doctor to null to close the chat
   };
+
   return (
     <>
       {!selectedDoctor ? (
@@ -128,6 +129,7 @@ const DoctorList = () => {
           chatId={selectedDoctor.chatId}
           role={selectedDoctor.role}
           onClose={handleCloseChat}
+          name={selectedDoctor?.username}
         /> // Pass the role to the Chat component
       )}
     </>

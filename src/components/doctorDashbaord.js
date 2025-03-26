@@ -46,8 +46,9 @@ const DoctorDashboard = ({ currentPage }) => {
   }, [role, token]);
 
   const handleCloseChat = () => {
-    selectedChat(null); // Set the selected doctor to null to close the chat
+    setSelectedChat(null); // Set the selected doctor to null to close the chat
   };
+
   return currentPage === "dashboard" ? (
     <>
       <div className='dashboard-container d-flex-full d-flex-col'>
@@ -108,6 +109,7 @@ const DoctorDashboard = ({ currentPage }) => {
           chatId={selectedChat.id} // Pass chatId
           role={selectedChat.role} // Pass role
           onClose={handleCloseChat}
+          name={selectedChat?.person1?.username}
         />
       )}
     </div>

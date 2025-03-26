@@ -114,6 +114,7 @@ const LawyerDashboard = ({ currentPage }) => {
           chatId={selectedChat.id} // Pass chatId
           role={selectedChat.role} // Pass role
           onClose={handleCloseChat}
+          name={selectedChat?.person1?.username}
         />
       )}
     </div>
