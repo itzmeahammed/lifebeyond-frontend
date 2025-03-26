@@ -16,12 +16,14 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-
+    .MuiButtonBase-root {
+      height: 50px;
+    }
     .login-form {
       width: 80%;
       border-radius: 8px;
       .login-page-form-div {
-        padding: 40px 0;
+        padding: 10px 0;
         align-items: center;
         justify-content: space-evenly;
         display: flex;

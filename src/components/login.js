@@ -23,6 +23,8 @@ const LoginPage = () => {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [role, setRole] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [bio, setBio] = useState("");
   const [error, setError] = useState("");
   const [showSignup, setShowSignup] = useState(false);
   const [isSubmitted, setisSubmitted] = useState(false);
@@ -53,8 +55,8 @@ const LoginPage = () => {
         email: signUpEmail,
         role: role,
         password: signUpPassword,
-        avatar: "",
-        bio: "",
+        avatar: avatar,
+        bio: bio,
       });
       Cookies.set("token", response?.data?.token);
       Cookies.set("role", response?.data?.role);
@@ -201,6 +203,22 @@ const LoginPage = () => {
                     fullWidth
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label='Avatar'
+                    variant='outlined'
+                    fullWidth
+                    value={avatar}
+                    onChange={(e) => setAvatar(e.target.value)}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    label='Bio'
+                    variant='outlined'
+                    fullWidth
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                     sx={{ mb: 2 }}
                   />
                   <Button

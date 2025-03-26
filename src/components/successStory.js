@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/components/sucessStory.scss";
+import EducationPopup from "./educationPopup";
 
 const SuccessStory = () => {
+  const [isEductionClicked, setisEductionClicked] = useState(false);
   const successStoryData = [
     {
       src: "https://m.economictimes.com/thumb/height-450,width-600,imgsize-59262,msid-99457069/sanjay-dutt-calls-reports-on-injury-baseless-says-he-is-fine-and-healthy.jpg",
@@ -36,8 +38,17 @@ Imprisoned for 27 years due to his anti-segregation activities, he emerged as a 
         "In 2007, while studying abroad in Perugia, Italy, Knox was accused of being involved in the murder of her roommate, Meredith Kercher.After a series of trials, appeals, and retrials over several years, Amanda Knox was ultimately acquitted by the Italian courts. The complex legal process raised questions about forensic methods and the handling of international cases.",
     },
   ];
+
+  console.log(isEductionClicked);
+
   return (
     <>
+      {isEductionClicked && (
+        <EducationPopup
+          isEductionClicked={isEductionClicked}
+          setisEductionClicked={setisEductionClicked}
+        />
+      )}
       <div className='success-stories-container d-flex-full d-flex-col'>
         <div className='success-stories-inner-container  d-flex-col gap-16 d-flex-jsc'>
           <p>
@@ -45,7 +56,12 @@ Imprisoned for 27 years due to his anti-segregation activities, he emerged as a 
             way to a brighter future.
           </p>
           <div className='dasboard-btn-container '>
-            <button className='p-16 cursor-ptr'>Education</button>
+            <button
+              className='p-16 cursor-ptr'
+              onClick={() => setisEductionClicked(true)}
+            >
+              Education
+            </button>
           </div>
           <div className='voice-assistent-gif-container d-flex-col d-flex-full cursor-ptr'>
             <img
