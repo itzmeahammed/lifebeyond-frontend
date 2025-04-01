@@ -22,7 +22,7 @@ FROM nginx:alpine
 # Copy the built React app to Nginx's default static folder
 COPY --from=build /app/build /usr/share/nginx/html
 
-EXPOSE 3000
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
