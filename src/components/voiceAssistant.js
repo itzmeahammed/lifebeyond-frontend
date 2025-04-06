@@ -15,6 +15,7 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
   const [recording, setRecording] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
+  const [audioUrl, setAudioUrl] = useState(""); // To store the audio URL for playback
   const [responseModalOpen, setResponseModalOpen] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -71,9 +72,14 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
           Authorization: token,
           "Content-Type": "multipart/form-data",
         },
+        responseType: "blob", // This tells axios to expect a binary blob
       });
 
-      setResponse(res.data.Response);
+      // Create an object URL from the blob response to play the audio
+      const audioBlobUrl = URL.createObjectURL(res.data);
+      setAudioUrl(audioBlobUrl); // Store the audio URL to be used for playback
+
+      setResponse(res.data.Response); // Show any textual response
       setResponseModalOpen(true);
     } catch (error) {
       console.error("Error uploading audio:", error);
@@ -84,6 +90,14 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       setisrecordStart(false);
     }
   };
+
+  useEffect(() => {
+    if (audioUrl) {
+      // Automatically play the audio once it is set
+      const audioElement = new Audio(audioUrl);
+      audioElement.play();
+    }
+  }, [audioUrl]); // Effect runs whenever audioUrl changes
 
   useEffect(() => {
     isrecordStart && startRecording();
@@ -160,6 +174,15 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
             Assistant Response
           </Typography>
           <Typography variant='body1'>{response}</Typography>
+
+          {/* Add audio player to play the response */}
+          {audioUrl && (
+            <audio autoPlay>
+              <source src={audioUrl} type='audio/mp3' />
+              Your browser does not support the audio element.
+            </audio>
+          )}
+
           <Button
             variant='contained'
             color='primary'
