@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import { getWaveBlob } from "webm-to-wav-converter";
-import { VOICE_ASSISTANT_RECOGNIZE_URL } from "../helper/apiurls";
-import Cookies from "js-cookie";
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import { getWaveBlob } from 'webm-to-wav-converter';
+import { VOICE_ASSISTANT_RECOGNIZE_URL } from '../helper/apiurls';
+import Cookies from 'js-cookie';
 import {
   Modal,
   Box,
   Typography,
   Button,
   CircularProgress,
-} from "@mui/material";
+} from '@mui/material';
 
 const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
   const [recording, setRecording] = useState(false);
@@ -19,13 +19,13 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
   const [responseModalOpen, setResponseModalOpen] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const token = Cookies.get("token");
+  const token = Cookies.get('token');
 
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorderRef.current = new MediaRecorder(stream, {
-        mimeType: "audio/webm",
+        mimeType: 'audio/webm',
       });
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -37,7 +37,7 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       mediaRecorderRef.current.onstop = async () => {
         setLoading(true);
         const webmBlob = new Blob(audioChunksRef.current, {
-          type: "audio/webm",
+          type: 'audio/webm',
         });
         audioChunksRef.current = [];
 
@@ -48,7 +48,7 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       mediaRecorderRef.current.start();
       setRecording(true);
     } catch (error) {
-      console.error("Error accessing microphone:", error);
+      console.error('Error accessing microphone:', error);
     }
   };
 
@@ -62,15 +62,15 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
   const sendAudioToBackend = async (audioBlob) => {
     const formData = new FormData();
     formData.append(
-      "file",
-      new File([audioBlob], "recording.wav", { type: "audio/wav" })
+      'file',
+      new File([audioBlob], 'recording.wav', { type: 'audio/wav' })
     );
 
     try {
       const res = await axios.post(VOICE_ASSISTANT_RECOGNIZE_URL, formData, {
         headers: {
           Authorization: token,
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
         responseType: "blob", // This tells axios to expect a binary blob
       });
@@ -82,8 +82,8 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       setResponse(res.data.Response); // Show any textual response
       setResponseModalOpen(true);
     } catch (error) {
-      console.error("Error uploading audio:", error);
-      setResponse("Error processing audio.");
+      console.error('Error uploading audio:', error);
+      setResponse('Error processing audio.');
       setResponseModalOpen(true);
     } finally {
       setLoading(false);
@@ -112,24 +112,24 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       >
         <Box
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             width: 400,
-            bgcolor: "#000",
-            color: "#fff",
+            bgcolor: '#000',
+            color: '#fff',
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
-            textAlign: "center",
+            textAlign: 'center',
           }}
         >
           {isrecordStart && (
             <img
               src='https://i.pinimg.com/originals/31/2e/fc/312efcd060aff82a2372e176801463a0.gif'
               alt='Voice Assistant'
-              style={{ width: "300px" }}
+              style={{ width: '300px' }}
             />
           )}
           <Box mt={2}>
@@ -137,8 +137,8 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
               <Button
                 variant='contained'
                 sx={{
-                  backgroundColor: "#D32F2F",
-                  "&:hover": { backgroundColor: "#B71C1C" },
+                  backgroundColor: '#D32F2F',
+                  '&:hover': { backgroundColor: '#B71C1C' },
                 }}
                 onClick={stopRecording}
                 disabled={loading}
@@ -158,16 +158,16 @@ const VoiceRecorder = ({ isrecordStart, setisrecordStart }) => {
       >
         <Box
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
             width: 400,
-            bgcolor: "background.paper",
+            bgcolor: 'background.paper',
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
-            textAlign: "center",
+            textAlign: 'center',
           }}
         >
           <Typography variant='h6' gutterBottom>
